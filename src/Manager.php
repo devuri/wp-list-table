@@ -37,19 +37,19 @@ abstract class Manager extends \WP_List_Table
      */
     protected $results;
 
-	/**
-	 * Itesm per page.
-	 *
-	 * @var [type]
-	 */
-	protected $per_page;
+    /**
+     * Itesm per page.
+     *
+     * @var int
+     */
+    protected $per_page;
 
     /**
      * create.
      *
      * @param array $table_data  array of items.
      */
-    public function __construct(array $table_data, array $config = [])
+    public function __construct(array $table_data, array $config)
     {
         parent::__construct(
             [
@@ -59,7 +59,7 @@ abstract class Manager extends \WP_List_Table
             ]
         );
 
-		$this->per_page = $config['per_page'] ?? 10;
+        $this->per_page = $config['per_page'] ?? 10;
 
         // array of table data.
         $this->results = $table_data;
@@ -76,18 +76,17 @@ abstract class Manager extends \WP_List_Table
         $hidden       = $this->get_hidden_columns();
         $sortable     = $this->get_sortable_columns();
         $current_page = $this->get_pagenum();
-        $per_page     = 10;
 
         usort($this->results, [ &$this, 'sort_data' ]);
 
         $this->set_pagination_args(
             [
                 'total_items' => count($this->results),
-                'per_page'    => $per_page,
+                'per_page'    => $this->per_page,
             ]
         );
 
-        $data = array_slice($this->results, (($current_page - 1) * $per_page), $per_page);
+        $data = array_slice($this->results, (($current_page - 1) * $this->per_page), $this->per_page);
 
         $this->_column_headers = [$columns, $hidden, $sortable];
         $this->items           = $data;
