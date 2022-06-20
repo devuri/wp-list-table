@@ -187,7 +187,7 @@ abstract class Manager extends \WP_List_Table
 
         // If orderby is not set, use this as the sort column
         if (! $orderby) {
-            $orderby = 'title';
+            $orderby = 'id';
         }
 
         // If order is not set, use this as the order
