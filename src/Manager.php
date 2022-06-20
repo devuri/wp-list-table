@@ -160,9 +160,13 @@ abstract class Manager extends \WP_List_Table
      * @param  string   $q
      * @return null|string
      */
-    private static function query(string $q): ?string
+    protected static function query(array $get, string $q): ?string
     {
-        $query = sanitize_text_field($q);
+        if (! isset($get[$q])) {
+            return null;
+        }
+
+        $query = sanitize_text_field($get[$q]);
 
         if (empty($query)) {
             return null;
@@ -176,14 +180,14 @@ abstract class Manager extends \WP_List_Table
      *
      * @return Mixed
      */
-    private function sort_data(array $a, array $b)
+    protected function sort_data(array $a, array $b)
     {
-        $orderby = $this->query($_GET['orderby']);
-        $order   = $this->query($_GET['orderby']);
+        $orderby = $this->query($_GET, 'orderby');
+        $order   = $this->query($_GET, 'order');
 
         // If orderby is not set, use this as the sort column
         if (! $orderby) {
-            $orderby = 'chassis';
+            $orderby = 'title';
         }
 
         // If order is not set, use this as the order
