@@ -155,24 +155,40 @@ abstract class Manager extends \WP_List_Table
     }
 
     /**
+     * Get query.
+     *
+     * @param  string   $q
+     * @return null|string
+     */
+    private static function query(string $q): ?string
+    {
+        $query = sanitize_text_field($q);
+
+        if (empty($query)) {
+            return null;
+        }
+
+        return $query;
+    }
+
+    /**
      * Sort the data by the variables set in the $_GET
      *
      * @return Mixed
      */
     private function sort_data(array $a, array $b)
     {
-        // Set defaults
-        $orderby = 'chassis';
-        $order   = 'asc';
+        $orderby = $this->query($_GET['orderby']);
+        $order   = $this->query($_GET['orderby']);
 
-        // If orderby is set, use this as the sort column
-        if (! empty($_GET['orderby'])) {
-            $orderby = $_GET['orderby'];
+        // If orderby is not set, use this as the sort column
+        if (! $orderby) {
+            $orderby = 'chassis';
         }
 
-        // If order is set use this as the order
-        if (! empty($_GET['order'])) {
-            $order = $_GET['order'];
+        // If order is not set, use this as the order
+        if (! $order) {
+            $order = 'asc';
         }
 
 
