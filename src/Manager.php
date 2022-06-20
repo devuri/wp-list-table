@@ -8,6 +8,7 @@
  * Please see the LICENSE file that was distributed with this source code
  * for full copyright and license information.
  */
+
 namespace DevUri\ListTable;
 
 /**
@@ -24,26 +25,26 @@ namespace DevUri\ListTable;
  *
  * @link https://developer.wordpress.org/reference/classes/wp_list_table/
  */
-abstract class ListManager extends \WP_List_Table
+abstract class Manager extends \WP_List_Table
 {
-	public const ITEM_NONCE_FIELD = 'delete_item_nonce_field';
-	public const ITEM_NONCE_ACTION = 'delete_item_action';
+    public const ITEM_NONCE_FIELD  = 'delete_item_nonce_field';
+    public const ITEM_NONCE_ACTION = 'delete_item_action';
 
-	/**
-	 * Provides results data.
-	 *
-	 * @var array
-	 */
-	protected $results;
+    /**
+     * Provides results data.
+     *
+     * @var array
+     */
+    protected $results;
 
-	/**
-	 * create.
-	 *
-	 * @param array $table_data  array of items.
-	 */
-	public function __construct(array $table_data)
-	{
-		parent::__construct(
+    /**
+     * create.
+     *
+     * @param array $table_data  array of items.
+     */
+    public function __construct(array $table_data)
+    {
+        parent::__construct(
             [
                 'singular' => 'item',
                 'plural'   => 'items',
@@ -51,39 +52,39 @@ abstract class ListManager extends \WP_List_Table
             ]
         );
 
-		// array of table data.
-		$this->results = $table_data;
-	}
+        // array of table data.
+        $this->results = $table_data;
+    }
 
-	/**
+    /**
      * Prepare the items for the table to process
      *
      * @return void
      */
     public function prepare_items()
     {
-		$columns      = $this->get_columns();
-		$hidden       = $this->get_hidden_columns();
-		$sortable     = $this->get_sortable_columns();
-		$current_page = $this->get_pagenum();
-		$per_page     = 10;
+        $columns      = $this->get_columns();
+        $hidden       = $this->get_hidden_columns();
+        $sortable     = $this->get_sortable_columns();
+        $current_page = $this->get_pagenum();
+        $per_page     = 10;
 
-        usort( $this->results, array( &$this, 'sort_data' ) );
+        usort($this->results, [ &$this, 'sort_data' ]);
 
-		$this->set_pagination_args(
-			[
-				'total_items' => count($this->results),
-				'per_page'    => $per_page,
-			]
-		);
+        $this->set_pagination_args(
+            [
+                'total_items' => count($this->results),
+                'per_page'    => $per_page,
+            ]
+        );
 
-        $data = array_slice($this->results,(($current_page-1)*$per_page),$per_page);
+        $data = array_slice($this->results, (($current_page - 1) * $per_page), $per_page);
 
-        $this->_column_headers = array($columns, $hidden, $sortable);
-        $this->items = $data;
+        $this->_column_headers = [$columns, $hidden, $sortable];
+        $this->items           = $data;
     }
 
-	/**
+    /**
      * Gets a list of columns.
      *
      * The format is:
@@ -103,10 +104,10 @@ abstract class ListManager extends \WP_List_Table
 
     public function get_sortable_columns()
     {
-        return array('title' => array('title', false));
+        return ['title' => ['title', false]];
     }
 
-	/**
+    /**
      * Generates content for a single row of the table.
      *
      * @since 3.1.0
@@ -123,7 +124,7 @@ abstract class ListManager extends \WP_List_Table
         echo '</tr>';
     }
 
-	/**
+    /**
      * Define what data to show on each column of the table
      *
      * @param Array  $item        Data.
@@ -149,29 +150,26 @@ abstract class ListManager extends \WP_List_Table
      *
      * @return Mixed
      */
-    private function sort_data( $a, $b )
+    private function sort_data($a, $b)
     {
         // Set defaults
         $orderby = 'chassis';
-        $order = 'asc';
+        $order   = 'asc';
 
         // If orderby is set, use this as the sort column
-        if(!empty($_GET['orderby']))
-        {
+        if (! empty($_GET['orderby'])) {
             $orderby = $_GET['orderby'];
         }
 
         // If order is set use this as the order
-        if(!empty($_GET['order']))
-        {
+        if (! empty($_GET['order'])) {
             $order = $_GET['order'];
         }
 
 
-        $result = strcmp( $a[$orderby], $b[$orderby] );
+        $result = strcmp($a[$orderby], $b[$orderby]);
 
-        if($order === 'asc')
-        {
+        if ($order === 'asc') {
             return $result;
         }
 

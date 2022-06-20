@@ -1,18 +1,14 @@
 {
-    "name": "devuri/cpt-meta-box",
+    "name": "devuri/wp-list-table",
     "type": "library",
-    "description": "Simple Implementation for custom meta boxes and fields for WordPress custom post types.",
+    "description": "Simple Implemetation for custom List Tables in WordPress.",
     "keywords": [
 		"wp",
 		"wordpress",
-		"meta",
-		"meta",
-		"metabox",
-		"post",
-		"type",
+		"table",
 		"devuri"
 	],
-    "homepage": "https://github.com/devuri/cpt-meta-box",
+    "homepage": "https://github.com/devuri/wp-list-table",
     "license": "MIT",
 	"minimum-stability": "dev",
 	"prefer-stable": true,
@@ -25,12 +21,11 @@
         }
     ],
     "support": {
-		"source": "https://github.com/devuri/cpt-meta-box",
-        "issues": "https://github.com/devuri/cpt-meta-box/issues"
+		"source": "https://github.com/devuri/wp-list-table",
+        "issues": "https://github.com/devuri/wp-list-table/issues"
     },
     "require": {
-		"php": "^7.1",
-		"devuri/wp-admin-page": "^3.3.2"
+		"php": "^7.1"
     },
 	"require-dev": {
 		"symfony/var-dumper": "^5.1.4",
@@ -43,7 +38,7 @@
 	},
     "autoload": {
         "psr-4": {
-            "DevUri\\Meta\\": "src"
+            "DevUri\\ListTable\\": "src"
         }
     },
 	"scripts": {
