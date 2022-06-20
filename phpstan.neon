@@ -3,7 +3,7 @@ includes:
 	- vendor/szepeviktor/phpstan-wordpress/extension.neon
 parameters:
 	tmpDir: tmp
-	level: 1
+	level: max
 	inferPrivatePropertyTypeFromConstructor: true
 	treatPhpDocTypesAsCertain: false
 	checkMissingIterableValueType: false
