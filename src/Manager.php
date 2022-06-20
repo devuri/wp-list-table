@@ -154,22 +154,22 @@ abstract class Manager extends \WP_List_Table
         }
     }
 
-	/**
-	 * Get query.
-	 *
-	 * @param  string   $q
-	 * @return null|string
-	 */
-	private static function query(string $q): ?string
-	{
-		$query = sanitize_text_field($q);
+    /**
+     * Get query.
+     *
+     * @param  string   $q
+     * @return null|string
+     */
+    private static function query(string $q): ?string
+    {
+        $query = sanitize_text_field($q);
 
-		if (empty($query)) {
-			return null;
-		}
+        if (empty($query)) {
+            return null;
+        }
 
-		return $query;
-	}
+        return $query;
+    }
 
     /**
      * Sort the data by the variables set in the $_GET
@@ -178,8 +178,8 @@ abstract class Manager extends \WP_List_Table
      */
     private function sort_data(array $a, array $b)
     {
-		$orderby = $this->query($_GET['orderby']);
-		$order = $this->query($_GET['orderby']);
+        $orderby = $this->query($_GET['orderby']);
+        $order   = $this->query($_GET['orderby']);
 
         // If orderby is not set, use this as the sort column
         if (! $orderby) {
