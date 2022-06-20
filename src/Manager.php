@@ -116,8 +116,9 @@ abstract class Manager extends \WP_List_Table
      *
      * @param object|array $item The current item
      */
-    public function single_row($item)
+    public function single_row($item): void
     {
+        // @phpstan-ignore-next-line
         $id = $item['id'] ?? 0;
         echo '<tr class="row-item-'.$id.'">';
         $this->single_row_columns($item);
@@ -150,7 +151,7 @@ abstract class Manager extends \WP_List_Table
      *
      * @return Mixed
      */
-    private function sort_data($a, $b)
+    private function sort_data(array $a, array $b)
     {
         // Set defaults
         $orderby = 'chassis';
