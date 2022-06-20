@@ -37,12 +37,19 @@ abstract class Manager extends \WP_List_Table
      */
     protected $results;
 
+	/**
+	 * Itesm per page.
+	 *
+	 * @var [type]
+	 */
+	protected $per_page;
+
     /**
      * create.
      *
      * @param array $table_data  array of items.
      */
-    public function __construct(array $table_data)
+    public function __construct(array $table_data, array $config = [])
     {
         parent::__construct(
             [
@@ -51,6 +58,8 @@ abstract class Manager extends \WP_List_Table
                 'ajax'     => false,
             ]
         );
+
+		$this->per_page = $config['per_page'] ?? 10;
 
         // array of table data.
         $this->results = $table_data;
