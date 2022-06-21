@@ -166,7 +166,7 @@ abstract class Manager extends \WP_List_Table
             return null;
         }
 
-        $query = sanitize_text_field($get[$q]);
+        $query = sanitize_key($get[$q]);
 
         if (empty($query)) {
             return null;
